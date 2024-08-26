@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+/* Navbar */
+.navbar {
+  background-color: #fff;
+  height: 3.5rem;
+}
+.navbar-collapse {
+  background-color: #fff;
+}
+
+.nav-link {
+  color: #222222;
+}
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.fa-compass {
+  color: #ff385c;
+  font-size: 2rem;
+}
+.brand-name {
+  color: #ff385c;
+  position: relative;
+  left: 6px;
+  bottom: 4px;
+}
+/* Footer */
+footer {
+  margin-top: 3rem;
+  position: relative;
+  bottom: 0;
+}
+
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.f-info-socials,
+.f-info-links,
+.f-info-brand {
+  width: 100%;
+}
+.f-info-socials i {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+.f-info-socials i:hover {
+  transform: scale(1.1);
+  color: blue;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+
+/* cards */
+
+.card {
+  border: none;
+  margin-bottom: 2rem;
+}
+.card-body {
+  padding: 0;
+}
+.card-img-top {
+  border-radius: 1rem;
+}
+
+/* Card Effect Overlay */
+
+.card-img-overlay:hover {
+  background-color: #fff;
+  opacity: 0.2;
+}
+
+.add-btn,
+.edit-btn {
+  background-color: #ff385c;
+  margin-right: 2rem;
+}
+
+/* Show Page */
+
+.show-img {
+  height: 50vh;
+}
+
+.show-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.card-text {
+  margin: 0.5rem 0;
+}
+
+/* Styling For error.ejs */
+
+.err-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.status {
+  color: #ff385c;
+  font-weight: 700;
+  font-size: 10rem;
+  border-radius: 5rem;
+}
+
+.less-than {
+  font-size: large;
+  padding-right: 2px;
+}
+.home-link a {
+  color: blue;
+  font-size: 14px;
+}
+
+/* Styling for Reviews */
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+}
