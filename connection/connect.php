@@ -8,5 +8,3 @@ if ($con->connect_error) {
 $sql = "create DATABASE IF NOT EXISTS Wanderlust";
 $result = $con->query($sql);
 $con->select_db("Wanderlust");
-
-echo "<h1>Table Creation Successfully</h1>";
