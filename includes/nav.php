@@ -8,23 +8,32 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/wanderlust/listings/index.php">Home</a>
+          <a class="nav-link" href="../listings/index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php">View all Listing</a>
+          <a class="nav-link" href="../listings/index.php">View all Listing</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="new.php">Add New Listing</a>
+          <a class="nav-link" href="../listings/new.php">Add New Listing</a>
         </li>
       </ul>
-      <ul class="navbar-nav align-self-end">
-        <li class="nav-item">
-          <a href="/signup" class="nav-link">Signup</a>
-        </li>
-        <li class="nav-item">
-          <a href="/login" class="nav-link">Login</a>
-        </li>
-      </ul>
+      <?php
+      if (isset($_SESSION["username"])) { ?>
+        <ul class="navbar-nav align-self-end ms-auto">
+          <li class="nav-item">
+            <a href="../users/logout.php" class="nav-link">Logout</a>
+          </li>
+        </ul>
+      <?php } else { ?>
+        <ul class="navbar-nav align-self-end ms-auto">
+          <li class="nav-item">
+            <a href="../users/signup.php" class="nav-link">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a href="../users/login.php" class="nav-link">Login</a>
+          </li>
+        </ul>
+      <?php } ?>
     </div>
   </div>
 </nav>

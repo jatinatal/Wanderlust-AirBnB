@@ -1,6 +1,10 @@
 <?php
+session_start();
 include("../connection/connect.php");
 include("../misc/redirect.php");
+if (!isset($_SESSION["username"])) {
+  redirect("../users/login.php");
+}
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
   $getListingByID = "select * from listings where id = $id";

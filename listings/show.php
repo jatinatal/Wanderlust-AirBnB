@@ -1,10 +1,11 @@
 <?php
+session_start();
 include("../misc/redirect.php");
 include("../connection/connect.php");
 // Show Route From Home Page
 if (isset($_GET["id"])) {
   $listingID = $_GET["id"];
-  $getListingByID = "select * from listings where id = $listingID";
+  $getListingByID = "select * from listings join users on listings.user=users.userId where id = $listingID";
   $result = $con->query($getListingByID);
   if ($result->num_rows > 0)
   ?>
@@ -41,14 +42,17 @@ if (isset($_GET["id"])) {
               <img src="<?= $row["image"] ?>" class="card-img-top show-img" alt="listing-image" />
               <div class="card-body">
                 <div class="card-text">
-                  <div>
+                  <div class="mb-2">
+                    Hosted by <b><i> @<?= $row["username"] ?></i></b>
+                  </div>
+                  <div class="mb-2">
                     <?= $row["description"] ?>
                   </div>
-                  <div>&#8377;<?= $row["price"] ?></div>
-                  <div>
+                  <div class="mb-2">&#8377;<?= $row["price"] ?></div>
+                  <div class="mb-2">
                     <?= $row["location"] ?>
                   </div>
-                  <div>
+                  <div class="mb-2">
                     <?= $row["country"] ?>
                   </div>
                 </div>
@@ -82,6 +86,9 @@ if (isset($_GET["id"])) {
 <?php
 // Deletion Route to delete Listing and redirect to Home page
 if (isset($_POST["deleteBtn"])) {
+  if (!isset($_SESSION["username"])) {
+    redirect("../users/login.php");
+  }
   $id = $_POST["id"];
   $deleteListing = "delete from listings where id = $id";
   if (!$con->query($deleteListing)) {

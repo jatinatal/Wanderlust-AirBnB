@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../connection/connect.php");
 $getListings = "select * from listings";
 $result = $con->query($getListings);

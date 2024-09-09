@@ -1,6 +1,11 @@
 <?php
+session_start();
 include("../connection/connect.php");
 include("../misc/redirect.php");
+
+if (!isset($_SESSION["username"])) {
+  redirect("../users/login.php");
+}
 if (isset($_POST["newBtn"])) {
   $title = $_POST["title"];
   $description = $_POST["description"];
@@ -11,8 +16,8 @@ if (isset($_POST["newBtn"])) {
   $price = $_POST["price"];
   $location = $_POST["location"];
   $country = $_POST["country"];
-
-  $insertListing = "insert into listings (title, description, image, price, location, country)values ('$title','$description','$image','$price','$location','$country');";
+  $userId = $_SESSION["userId"];
+  $insertListing = "insert into listings (title, description, image, price, location, country, user)values ('$title','$description','$image','$price','$location','$country', '$userId' );";
 
   if (!$con->query($insertListing)) {
     echo "Insertion Failed" . $con->error;
@@ -20,6 +25,7 @@ if (isset($_POST["newBtn"])) {
     redirect("index.php");
   }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +54,7 @@ if (isset($_POST["newBtn"])) {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
           class="needs-validation">
           <div class="mb-3">
-            <label for="title" class="form-label">Title: </label>
+            <label for="title" class="form-label star">Title: </label>
             <div class="input-group has-validation">
               <input type="text" name="title" id="title" class="form-control" placeholder="Add a catchy Title"
                 required />
@@ -64,17 +70,18 @@ if (isset($_POST["newBtn"])) {
             <label for="image" class="form-label">Image: </label>
             <input type="url" name="image" id="image" placeholder="URL/Link" class="form-control" />
           </div>
-          <div class="mb-3">
-            <label for="price" class="form-label">Price: </label>
+          <div class="mb-3 ">
+            <label for="price" class="form-label star">Price: </label>
             <div class="input-group has-validation">
-              <input type="number" name="price" id="price" class="form-control" placeholder="7500" required />
+              <input type="number" name="price" id="price" class="form-control" placeholder="7500   *per night"
+                required />
               <div class="valid-feedback">Looks Good.</div>
               <div class="invalid-feedback">Please Provide Price</div>
             </div>
           </div>
           <div class="row">
             <div class="mb-3 col-md-4">
-              <label for="location" class="form-label">Location: </label>
+              <label for="location" class="form-label star">Location: </label>
               <div class="input-group has-validation">
                 <input type="text" name="location" id="location" class="form-control" placeholder="Jaipur" required />
                 <div class="valid-feedback">Looks Good.</div>
@@ -82,7 +89,7 @@ if (isset($_POST["newBtn"])) {
               </div>
             </div>
             <div class="mb-3 col-md-8">
-              <label for="country" class="form-label">Country: </label>
+              <label for="country" class="form-label star">Country: </label>
               <div class="input-group has-validation">
                 <input type="text" name="country" id="country" class="form-control" placeholder="India" required />
                 <div class="valid-feedback">Looks Good.</div>
