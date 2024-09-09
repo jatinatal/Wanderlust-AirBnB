@@ -30,8 +30,22 @@ $createListingsTable = "create table IF NOT EXISTS listings (
     foreign key (user) references users(userId)
 );";
 
+// Creating Review Table
+$createReviewTable = "create table IF NOT EXISTS reviews(
+    reviewId int AUTO_INCREMENT,
+    author varchar(25) not null,
+    authorId int not null,
+    star int not null,
+    comment varchar(255) not null,
+    primary key (reviewId),
+    listingId int not null,
+    foreign key (authorId) references users(userId),
+    foreign key (listingId) references listings(id)
+);";
+
 $con->query($createUsersTable);
 $con->query($createListingsTable);
+$con->query($createReviewTable);
 
 // Inserting Users Data
 $insertUser = "insert into users values (1,'admin','admin@gmail.com','admin123');";

@@ -13,7 +13,10 @@ if (isset($_POST["submit"])) {
   if (!$con->query($sql)) {
     alert("Signup Failed! Please Try Again...");
   } else {
+    $result = $con->query("select userId from users where username = '$username';");
+    $row = $result->fetch_assoc();
     $_SESSION["username"] = $username;
+    $_SESSION["userId"] = $row["userId"];
     redirect("/wanderlust/listings/");
   }
 
