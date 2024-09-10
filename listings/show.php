@@ -155,7 +155,8 @@ if (isset($_POST["deleteBtn"])) {
   }
   $id = $_POST["id"];
   $deleteListing = "delete from listings where id = $id";
-  if (!$con->query($deleteListing)) {
+  $deleteReview = "delete from reviews where listingId = $id";
+  if (!$con->query($deleteListing) || !$con->query($deleteReview)) {
     echo "<h1>Deletion Failed</h1>";
   } else {
     redirect("/wanderlust/listings/index.php");
@@ -166,6 +167,7 @@ if (isset($_POST["deleteBtn"])) {
 <?php
 // Review Add to Db 
 if (isset($_POST["reviewSubmit"])) {
+  print_r($_SESSION);
   if (!isset($_SESSION["userId"])) {
     redirect("../users/login.php");
   }
