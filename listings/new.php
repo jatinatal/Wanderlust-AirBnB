@@ -71,10 +71,10 @@ if (isset($_POST["newBtn"])) {
             <input type="url" name="image" id="image" placeholder="URL/Link" class="form-control" />
           </div>
           <div class="mb-3 ">
-            <label for="price" class="form-label star">Price: </label>
+            <label for="price" class="form-label star-price-info">Price: </label>
             <div class="input-group has-validation">
-              <input type="number" name="price" id="price" class="form-control" placeholder="7500   *per night"
-                required />
+              <span class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+              <input type="number" name="price" id="price" class="form-control" placeholder="7500" required />
               <div class="valid-feedback">Looks Good.</div>
               <div class="invalid-feedback">Please Provide Price</div>
             </div>

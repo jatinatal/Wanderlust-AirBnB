@@ -160,3 +160,11 @@ footer {
   content: "*";
   color: red;
 }
+.star-price-info::after {
+  content: "*per night";
+  color: red;
+  font-size: 0.7rem;
+  position: relative;
+  left: 2px;
+  bottom: 0.5rem;
+}

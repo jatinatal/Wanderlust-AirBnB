@@ -8,13 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="../listings/index.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../listings/index.php">View all Listing</a>
+          <a class="nav-link" href="../listings/index.php">All Listings</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../listings/new.php">Add New Listing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../listings/search.php">Search<i class="fa-solid fa-magnifying-glass ps-2"></i></a>
         </li>
       </ul>
       <?php

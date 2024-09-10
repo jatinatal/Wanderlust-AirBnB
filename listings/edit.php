@@ -64,6 +64,7 @@ if (isset($_GET["id"])) {
               <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></span>
                   <input type="number" placeholder="price" name="price" value="<?= $row["price"] ?>" id="price"
                     class="form-control" required />
                   <div class="invalid-feedback">Please Provide Price</div>
