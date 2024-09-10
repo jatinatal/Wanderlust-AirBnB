@@ -59,7 +59,7 @@ if (isset($_GET["id"])) {
             </div>
           </div>
         </div>
-        <div class="offset-2 show-btns">
+        <div class="offset-2 show-btns mb-5">
           <button class="btn btn-secondary edit-btn">
             <a href="edit.php?id=<?= $row["id"] ?>">Edit Listing</a>
           </button>
@@ -74,7 +74,7 @@ if (isset($_GET["id"])) {
 } ?>
     <hr />
     <!-- Review Add Form -->
-    <div class="col-9 offset-2 mt-3">
+    <div class="col-9 offset-2 mt-4 mb-5">
       <h5>Leave a Review</h5>
       <div class="row">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?id=<?= $listingID ?>" method="post"
