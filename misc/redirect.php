@@ -1,12 +1,6 @@
 <?php
 
-function redirect($url)
-{
-    header("Location: $url");
-    exit();
-}
-
-function redirect1($filename)
+function redirect($filename)
 {
     if (!headers_sent())
         header('Location: ' . $filename);

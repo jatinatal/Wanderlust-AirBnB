@@ -124,7 +124,7 @@ if (isset($_GET["id"])) {
                 </h5>
                 <p class="starability-result" data-rating="<?= $row["star"] ?>"></p>
                 <p class=" card-text">Comment:~<b><?= $row["comment"] ?></b></p>
-                <?php if ($_SESSION["userId"] == $row["authorId"]) { ?>
+                <?php if (isset($_SESSION["userId"]) && $_SESSION["userId"] == $row["authorId"]) { ?>
                   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?id=<?= $listingID ?>" method="post">
                     <button class="btn btn-sm btn-dark" name="reviewDelete">Delete</button>
                     <input type="hidden" name="reviewId" value="<?= $row["reviewId"] ?>">
@@ -166,7 +166,9 @@ if (isset($_POST["deleteBtn"])) {
 <?php
 // Review Add to Db 
 if (isset($_POST["reviewSubmit"])) {
-
+  if (!isset($_SESSION["userId"])) {
+    redirect("../users/login.php");
+  }
   $star = $_POST["rating"];
   $comment = $_POST["comment"];
   $author = $_SESSION["username"];
@@ -176,7 +178,7 @@ if (isset($_POST["reviewSubmit"])) {
   if (!$con->query($sql)) {
     echo "Error in reviews" . $con->error;
   } else {
-    redirect1("show.php?id=$listingID");
+    redirect("show.php?id=$listingID");
   }
 } ?>
 
@@ -188,7 +190,7 @@ if (isset($_POST["reviewDelete"])) {
   if (!$con->query($sql)) {
     echo "Deletion Failed";
   }
-  redirect1("./show.php?id=$listingID");
+  redirect("./show.php?id=$listingID");
 
 }
 ?>
