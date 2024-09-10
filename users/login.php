@@ -2,7 +2,8 @@
 session_start();
 include("../connection/connect.php");
 include("../misc/redirect.php");
-include("../misc/alert.php");
+//Remove Warnings msgs
+error_reporting(E_ERROR | E_PARSE);
 
 if (isset($_POST["submit"])) {
   $username = $_POST["username"];
@@ -12,8 +13,7 @@ if (isset($_POST["submit"])) {
 
   if ($row = $result->fetch_assoc()) {
     if ($row["username"] !== $username || $row["password"] !== $password) {
-      alert("Either username or password is incorrect.. Please Try Again!");
-      exit;
+      $_SESSION["error"] = "Either Username or Password is Incorrect.";
     } else {
       if (isset($_POST["remember"])) {
         $userId = $row["userId"];
@@ -52,6 +52,10 @@ if (isset($_POST["submit"])) {
         <!-- Login form -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
           class="needs-validation">
+          <?php if (isset($_SESSION["error"])) { ?>
+            <div class="error"><?= $_SESSION["error"]; ?></div>
+            <?php unset($_SESSION["error"]);
+          } ?>
           <div class="mb-3">
             <label for="username" class="form-label">Username:</label>
             <div class="input-group has-validation">

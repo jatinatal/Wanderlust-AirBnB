@@ -2,7 +2,6 @@
 session_start();
 include("../connection/connect.php");
 include("../misc/redirect.php");
-include("../misc/alert.php");
 
 if (isset($_POST["submit"])) {
   $username = $_POST["username"];
@@ -11,7 +10,7 @@ if (isset($_POST["submit"])) {
   $sql = "insert into users (username, email, password) values ('$username','$email','$password');";
 
   if (!$con->query($sql)) {
-    alert("Signup Failed! Please Try Again...");
+    $_SESSION["error"] = "Signup Failed, Please Try again!";
   } else {
     $result = $con->query("select userId from users where username = '$username';");
     $row = $result->fetch_assoc();
@@ -48,6 +47,12 @@ if (isset($_POST["submit"])) {
       <!-- Sign Up Form -->
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
         class="needs-validation">
+        <?php if (isset($_SESSION["error"])) { ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert"><?= $_SESSION["error"]; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+          <?php unset($_SESSION["error"]);
+        } ?>
         <div class="mb-3">
           <label for="username" class="form-label">Username: </label>
           <div class="input-group has-validation">

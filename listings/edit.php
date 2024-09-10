@@ -35,6 +35,12 @@ if (isset($_GET["id"])) {
       <div class="container pt-4">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
           class="needs-validation">
+          <?php if (isset($_SESSION["error"])) { ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"><?= $_SESSION["error"]; ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <?php unset($_SESSION["error"]);
+          } ?>
           <div class="row mt-3">
             <div class="col-8 offset-2">
               <h3 class="mb-3">Edit your Listing</h3>
@@ -122,7 +128,7 @@ if (isset($_POST["updateBtn"])) {
   $updateListing = "update listings set title = '$title', description = '$description', image = '$image', price = $price, location = '$location', country = '$country'  where id = $id;";
 
   if (!$con->query($updateListing)) {
-    echo "Updation Failed" . $con->error;
+    $_SESSION["error"] = "Updation Of Listing Failed, please try again later!";
   } else {
     redirect("show.php?id=$id");
   }

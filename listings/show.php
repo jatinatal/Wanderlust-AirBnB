@@ -34,6 +34,12 @@ if (isset($_GET["id"])) {
         $row = $result->fetch_assoc(); ?>
         <div class="row mt-3">
           <div class="col-9 offset-2">
+            <?php if (isset($_SESSION["error"])) { ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert"><?= $_SESSION["error"]; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+              <?php unset($_SESSION["error"]);
+            } ?>
             <h3 class="mb-3">
               <?= $row["title"] ?>
             </h3>
@@ -157,7 +163,7 @@ if (isset($_POST["deleteBtn"])) {
   $deleteListing = "delete from listings where id = $id";
   $deleteReview = "delete from reviews where listingId = $id";
   if (!$con->query($deleteListing) || !$con->query($deleteReview)) {
-    echo "<h1>Deletion Failed</h1>";
+    $_SESSION["error"] = "Deletion Of Listing Route is Unsuccessfull";
   } else {
     redirect("/wanderlust/listings/index.php");
   }
@@ -178,7 +184,7 @@ if (isset($_POST["reviewSubmit"])) {
   $sql = "insert into reviews (author, authorId, star, comment, listingId) values 
   ('$author', $authorId, $star, '$comment', $listingID);";
   if (!$con->query($sql)) {
-    echo "Error in reviews" . $con->error;
+    $_SESSION["error"] = "Some Error occured In Adding Reviews, Please Try Again later!";
   } else {
     redirect("show.php?id=$listingID");
   }
@@ -190,7 +196,7 @@ if (isset($_POST["reviewDelete"])) {
   $reviewId = $_POST["reviewId"];
   $sql = "delete from reviews where reviewId = $reviewId;";
   if (!$con->query($sql)) {
-    echo "Deletion Failed";
+    $_SESSION["error"] = "Some Error occured In Deleting Reviews, Please Try Again later!";
   }
   redirect("./show.php?id=$listingID");
 

@@ -20,7 +20,7 @@ if (isset($_POST["newBtn"])) {
   $insertListing = "insert into listings (title, description, image, price, location, country, user)values ('$title','$description','$image','$price','$location','$country', '$userId' );";
 
   if (!$con->query($insertListing)) {
-    echo "Insertion Failed" . $con->error;
+    $_SESSION["error"] = "Some Error Occured.... Please Try again!";
   } else {
     redirect("index.php");
   }
@@ -53,6 +53,12 @@ if (isset($_POST["newBtn"])) {
         <h3 class="mb-3">Add New Listing</h3>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
           class="needs-validation">
+          <?php if (isset($_SESSION["error"])) { ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"><?= $_SESSION["error"]; ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <?php unset($_SESSION["error"]);
+          } ?>
           <div class="mb-3">
             <label for="title" class="form-label star">Title: </label>
             <div class="input-group has-validation">
