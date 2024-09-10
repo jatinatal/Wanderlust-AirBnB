@@ -1,8 +1,6 @@
 <?php
 session_start();
 include("../connection/connect.php");
-$getListings = "select * from listings";
-$result = $con->query($getListings);
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +21,65 @@ $result = $con->query($getListings);
 </head>
 
 <body>
-    <?php include("../includes/nav.php") ?>
+    <div class="main">
 
-    <div class="container pt-4">
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <?php include("../includes/nav.php") ?>
 
+        <div class="container pt-4">
+            <div class="row col-8 offset-2">
+                <!-- Seaching Form -->
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
+                    class="needs-validation">
+                    <div class="input-group mb-3 has-validation">
+                        <input type="text" class="form-control" placeholder="Search Listing By Title" name="search"
+                            required>
+
+                        <button class="btn btn-outline-secondary" type="submit" name="submit">
+                            <i class="fa-solid fa-magnifying-glass search"></i>
+                        </button>
+                        <div class="invalid-feedback">Searchbox Can't be Empty!!</div>
+                    </div>
+                </form>
+            </div>
+            <!-- Display result -->
+            <?php if (isset($_POST["submit"])) {
+                $input = $_POST["search"];
+                $getListings = "select * from listings where title like '%$input%';";
+                $result = $con->query($getListings);
+
+                if ($result->num_rows > 0) { ?>
+                    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-4">
+                        <?php while ($row = $result->fetch_assoc()) { ?>
+                            <div class="card">
+                                <a href="show.php?id=<?= $row["id"] ?>" class="listing-link">
+                                    <img src="<?= $row["image"] ?>" class="card-img-top" alt="listing-image"
+                                        style="height: 20rem" />
+                                    <div class="card-img-overlay"></div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                        <div>
+                                            <b><?= $row["title"] ?></b>
+                                        </div>
+                                        <div>
+                                            &#8377;<?= $row["price"] ?>/Night
+                                        </div>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } else { ?>
+                    <div class='container mt-5'>
+                        <div class="row col-8 offset-2">
+                            <h2 style='color:red;'>No Results Found!</h2>
+                        </div>
+                    </div>
+                <?php }
+            } ?>
         </div>
+    </div>
+
     </div>
 
     <?php include("../includes/foo.php") ?>

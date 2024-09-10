@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
+  <div class="container-fluid px-4">
     <a class="navbar-brand" href="index.php"><i class="fa-regular fa-compass"></i><span
         class="brand-name">airbnb</span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

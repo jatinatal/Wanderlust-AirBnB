@@ -39,6 +39,8 @@ a {
 }
 .brand-name {
   color: #ff385c;
+  font-weight: 900;
+  letter-spacing: 0.5px;
   position: relative;
   left: 6px;
   bottom: 4px;
@@ -167,4 +169,14 @@ footer {
   position: relative;
   left: 2px;
   bottom: 0.5rem;
+}
+/* Search Module */
+.search {
+  font-size: 1.2rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
