@@ -10,20 +10,19 @@ if (isset($_POST["submit"])) {
   $password = $_POST["password"];
   $sql = "select * from users where username = '$username' and password = '$password';";
   $result = $con->query($sql);
-
-  if ($row = $result->fetch_assoc()) {
-    if ($row["username"] !== $username || $row["password"] !== $password) {
-      $_SESSION["error"] = "Either Username or Password is Incorrect.";
-    } else {
-      if (isset($_POST["remember"])) {
-        $userId = $row["userId"];
-        setcookie("username", "$username", time() + 60 * 60 * 24); // Will Expire in 7 Days
-        setcookie("userId", "$userId", time() + 60 * 60 * 24);
-      }
-      $_SESSION["username"] = $username;
-      $_SESSION["userId"] = $row["userId"];
-      redirect("../listings/");
+  $row = $result->fetch_assoc();
+  if ($result->num_rows <= 0) {
+    $_SESSION["error"] = "Either Username or Password is Incorrect.";
+  } else {
+    if (isset($_POST["remember"])) {
+      $userId = $row["userId"];
+      setcookie("username", "$username", time() + 60 * 60 * 24); // Will Expire in 7 Days
+      setcookie("userId", "$userId", time() + 60 * 60 * 24);
     }
+    $_SESSION["username"] = $username;
+    $_SESSION["userId"] = $row["userId"];
+    redirect("../listings/");
+
   }
 } ?>
 <!DOCTYPE html>
@@ -53,7 +52,7 @@ if (isset($_POST["submit"])) {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate
           class="needs-validation">
           <?php if (isset($_SESSION["error"])) { ?>
-            <div class="error"><?= $_SESSION["error"]; ?></div>
+            <div class="alert alert-danger"><?= $_SESSION["error"]; ?></div>
             <?php unset($_SESSION["error"]);
           } ?>
           <div class="mb-3">
