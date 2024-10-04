@@ -22,6 +22,7 @@ if (isset($_POST["newBtn"])) {
   if (!$con->query($insertListing)) {
     $_SESSION["error"] = "Some Error Occured.... Please Try again!";
   } else {
+    $_SESSION["info"] = "New Listing Created Successfully";
     redirect("index.php");
   }
 }

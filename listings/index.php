@@ -25,6 +25,17 @@ $result = $con->query($getListings);
 <body>
     <?php include("../includes/nav.php") ?>
     <div class="container pt-4">
+        <?php
+        if (isset($_SESSION["info"])) { ?>
+            <div class="row col-6" style="margin: 0 auto">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $_SESSION["info"] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+            <?php unset($_SESSION["info"]);
+        }
+        ?>
         <?php if ($result->num_rows > 0) { ?>
             <h3 class="pb-2">All Listings</h3>
             <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">

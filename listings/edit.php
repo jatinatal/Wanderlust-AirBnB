@@ -130,6 +130,7 @@ if (isset($_POST["updateBtn"])) {
   if (!$con->query($updateListing)) {
     $_SESSION["error"] = "Updation Of Listing Failed, please try again later!";
   } else {
+    $_SESSION["info"] = "Listing Updated Successfully.";
     redirect("show.php?id=$id");
   }
 }

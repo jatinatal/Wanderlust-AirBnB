@@ -1,6 +1,7 @@
 <?php
-include("../misc/redirect.php");
 session_start();
-unset($_SESSION['userId']);
-unset($_SESSION['username']);
+include("../misc/redirect.php");
+
+session_unset();
+session_destroy();
 redirect('login.php');
