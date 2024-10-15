@@ -1,9 +1,12 @@
 <?php
 
-include("data.php");
+include("listingData.php");
+include("reviewsData.php");
+include("usersData.php");
 
-$initListing = json_decode($jsonData, true);
-
+$initListing = json_decode($listingData, true);
+$initReviews = json_decode($reviewsData, true);
+$initUsers = json_decode($usersData, true);
 
 include("../connection/connect.php");
 
@@ -12,7 +15,7 @@ $createUsersTable = "create table IF NOT EXISTS users(
     userId int AUTO_INCREMENT,
     username varchar(25) unique not null,
     email varchar(50) unique not null,
-    password varchar(32) unique not null,
+    password varchar(32) not null,
     primary key (userId)
 );";
 
@@ -22,7 +25,7 @@ $createListingsTable = "create table IF NOT EXISTS listings (
     title varchar(255) not null,
     description varchar(255) not null,
     image varchar(255) not null,
-    price int not null CHECK (price>100),
+    price int not null CHECK (price>0),
     location varchar(100) not null,
     country varchar(100) not null,
     primary key (id),
@@ -48,9 +51,11 @@ $con->query($createListingsTable);
 $con->query($createReviewTable);
 
 // Inserting Users Data
-$insertUser = "insert into users values (1,'admin','admin@gmail.com','admin123');";
-if (!$con->query($insertUser)) {
-    echo "Error Occured" . $con->error;
+for ($i = 0; $i < count($initUsers); $i++) {
+    $insertUsers = "insert into users (username, email, password) values ('" . $initUsers[$i]['username'] . "','" . $initUsers[$i]['email'] . "','" . $initUsers[$i]['password'] . "');";
+    if (!$con->query($insertUsers)) {
+        echo "Error Occured" . $con->error;
+    }
 }
 
 // Inserting Listings Data
@@ -61,5 +66,14 @@ for ($i = 0; $i < count($initListing); $i++) {
     }
 }
 
-echo "<h1>Insertion Successfull</h1><br />";
+// Inserting Reviews Data
+
+for ($i = 0; $i < count($initReviews); $i++) {
+    $insertReviews = "insert into reviews (author, authorId, star, comment, listingId) values ('" . $initReviews[$i]['author'] . "'," . $initReviews[$i]['authorId'] . "," . $initReviews[$i]['star'] . ",'" . $initReviews[$i]['comment'] . "'," . $initReviews[$i]['listingId'] . ");";
+    if (!$con->query($insertReviews)) {
+        echo "Error Occured" . $con->error;
+    }
+}
+
+echo "<h1>Insertion Successfull</h1>";
 echo "<h1><a href='/wanderlust/listings/'>Go to Home Page</a></h1>";

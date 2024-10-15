@@ -2,6 +2,8 @@
 session_start();
 include("../connection/connect.php");
 include("../misc/redirect.php");
+//Remove Warnings msgs
+error_reporting(E_ERROR | E_PARSE);
 if (!isset($_SESSION['admin_login'])) {
     redirect('../users/login.php');
 }

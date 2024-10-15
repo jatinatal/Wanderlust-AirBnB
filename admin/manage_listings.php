@@ -1,12 +1,12 @@
 <?php session_start();
 include("../connection/connect.php");
 include("../misc/redirect.php");
-if
-(!isset($_SESSION['admin_login'])) {
+//Remove Warnings msgs
+error_reporting(E_ERROR | E_PARSE);
+if (!isset($_SESSION['admin_login'])) {
     redirect('../users/login.php');
 }
-$listings = $con->query("SELECT * FROM
-    listings");
+$listings = $con->query("SELECT * FROM listings");
 ?>
 <!DOCTYPE html>
 <html lang="en">
