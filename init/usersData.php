@@ -4,7 +4,7 @@ $usersData = '[
         
         "username": "admin",
         "email": "admin@gmail.com",
-        "password": "12345678"
+        "password": "admin123"
     },
     {
         
