@@ -19,6 +19,9 @@ if (isset($_POST["submit"])) {
       setcookie("username", "$username", time() + 60 * 60 * 24); // Will Expire in 7 Days
       setcookie("userId", "$userId", time() + 60 * 60 * 24);
     }
+    if ($row["userId"] == 1) {
+      $_SESSION["admin_login"] = true;
+    }
     $_SESSION["username"] = $username;
     $_SESSION["userId"] = $row["userId"];
     redirect("../listings/");

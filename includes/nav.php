@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid px-4">
     <a class="navbar-brand" href="index.php"><i class="fa-regular fa-compass"></i><span
         class="brand-name">airbnb</span></a>
@@ -16,6 +16,25 @@
         <li class="nav-item">
           <a class="nav-link" href="../listings/search.php">Search<i class="fa-solid fa-magnifying-glass ps-2"></i></a>
         </li>
+        <?php
+        if (isset($_SESSION["admin_login"])) { ?>
+          <li class="nav-item dropdown ms-3">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin Dashboard
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <a class="dropdown-item" href="../admin/manage_listings.php">Manage Listings</a>
+              </li>
+              <li class="nav-item">
+                <a class="dropdown-item" href="../admin/manage_reviews.php">Manage Reviews</a>
+              </li>
+              <li class="nav-item">
+                <a class="dropdown-item" href="../admin/manage_users.php">Manage users</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
       </ul>
       <?php
       if (isset($_SESSION["username"])) { ?>

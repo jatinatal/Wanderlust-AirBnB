@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../connection/connect.php");
-$getListings = "select * from listings";
+$getListings = "select * from listings join users on listings.user = users.userId;";
 $result = $con->query($getListings);
 ?>
 
@@ -46,9 +46,7 @@ $result = $con->query($getListings);
                             <div class="card-img-overlay"></div>
                             <div class="card-body">
                                 <p class="card-text">
-                                    <b>
-                                        <?= $row["title"] ?>
-                                    </b> <br />
+                                    <b><?= $row["title"] ?></b> <br /> Hosted by <b>@<?= $row["username"] ?></b> <br />
                                     &#8377;<?= $row["price"] ?>/Night
                                 </p>
                             </div>
